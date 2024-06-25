@@ -19,8 +19,14 @@ const ItemDetail = () => {
   let array = Array.from({ length: 5 }, (_, index) => index + 1);
   useEffect(() => {
     dispatch({ type: "Nav_Search_Disable" });
-  }, []);
-  console.log(data);
+    if (scrollY > 0) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  }, [data]);
+  console.log(id, isLoading);
   const AddtoCartFunction = (currentid) => {
     let currentItem = cart.find((item) => {
       console.log(item.id, currentid);
@@ -42,7 +48,7 @@ const ItemDetail = () => {
     }
   };
 
-  console.log(products);
+  // console.log(products);
   const [CategoryFilter, setCategoryFilter] = useState([]);
   const CategoryFilterFun = () => {
     setCategoryFilter(
@@ -55,8 +61,8 @@ const ItemDetail = () => {
   useEffect(() => {
     CategoryFilterFun();
   }, [data?.category]);
-  console.log(CategoryFilter);
-  return isLoading ? (
+  console.log(data?.id, id);
+  return isLoading || data?.id !== parseInt(id) ? (
     <LoadingComponent loading={true} />
   ) : (
     <div className=" w-4/5 m-auto my-5">
