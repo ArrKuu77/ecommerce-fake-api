@@ -17,11 +17,13 @@ export const StateContextProvider = ({ children }) => {
     cart: [],
     categoryGroup: [],
     navSearch: false,
+    navPosition: { top: 0, left: 0 },
   };
 
   const FatchData = async () => {
     const res = await fetch("https://fakestoreapi.com/products");
     const data = await res.json();
+    // console.log(res);
     setProductLists(data);
   };
   const [search, setsearch] = useState("");

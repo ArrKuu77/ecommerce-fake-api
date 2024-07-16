@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useCustomHook } from "../context/StateContext";
 import { TiShoppingCart } from "react-icons/ti";
 import { Link } from "react-router-dom";
@@ -6,12 +6,22 @@ import { FaShopify } from "react-icons/fa6";
 
 const Navbar = () => {
   const {
-    state: { cart, navSearch },
+    state: { cart, navSearch, navPosition },
     search,
     setsearch,
+    dispatch,
   } = useCustomHook();
 
   const [show, setShow] = useState(true);
+  const CartRef = useRef();
+
+  console.log(navPosition);
+  useEffect(() => {
+    const rectCart = CartRef.current.getBoundingClientRect();
+    console.log(rectCart.top, rectCart.left);
+    const position = { top: rectCart.top, left: rectCart.left };
+    dispatch({ type: "Nav_Position", payload: position });
+  }, []);
 
   const updateScrollPosition = () => {
     const scrollTop = document.documentElement.scrollTop;
@@ -66,7 +76,7 @@ const Navbar = () => {
           />
         </div>
 
-        <Link to={"/AddtoCart"}>
+        <Link ref={CartRef} to={"/AddtoCart"}>
           <div className=" relative ">
             <TiShoppingCart className=" text-2xl text-customBrown shadow-customBrown/50 shadow-md" />
             {cart.length > 0 && (

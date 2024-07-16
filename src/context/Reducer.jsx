@@ -11,6 +11,8 @@ const reducer = (state, action) => {
       return { ...state, cart: [...state.cart, action.payload] };
     case "Clear_Cart":
       return { ...state, cart: [] };
+    case "Nav_Position":
+      return { ...state, navPosition: action.payload };
     case "Nav_Search_Disable":
       return { ...state, navSearch: true };
     case "Nav_Search_Nodisable":

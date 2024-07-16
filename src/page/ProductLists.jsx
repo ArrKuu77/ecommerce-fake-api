@@ -8,7 +8,7 @@ const ProductLists = () => {
     state: { products, navSearch },
     dispatch,
   } = useCustomHook();
-  console.log(products.length);
+  // console.log(products.length);
   useEffect(() => {
     dispatch({ type: "Nav_Search_Nodisable" });
   }, [navSearch]);
